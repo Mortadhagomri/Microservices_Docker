@@ -11,8 +11,8 @@ import lombok.NoArgsConstructor;
 @Data
 @Embeddable
 public class Company {
-
-    private String nameC;
+    
+    private String name;
     private String catchPhrase;
     private String bs;
 
