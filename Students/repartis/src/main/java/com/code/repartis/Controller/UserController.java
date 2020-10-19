@@ -2,6 +2,7 @@ package com.code.repartis.Controller;
 
 import java.util.List;
 
+import com.code.repartis.Services.CommentService;
 import com.code.repartis.entities.User;
 import com.code.repartis.repositories.UserRepository;
 
@@ -23,6 +24,9 @@ import lombok.AllArgsConstructor;
 @RequestMapping("/api")
 @AllArgsConstructor
 public class UserController {
+
+    @Autowired
+    private CommentService commService;
 
     @Autowired
     private UserRepository userRepository;
@@ -53,5 +57,10 @@ public class UserController {
             userRepository.deleteById(id);
             return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @GetMapping(value="/getComments/{id}")
+    public List<Object> getComments(@PathVariable(name="id") Long id){
+       return commService.getUserComments(id);
+}
 
 }

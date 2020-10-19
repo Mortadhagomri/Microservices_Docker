@@ -12,9 +12,6 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 
-//import com.code.repartis.Fake.Addressf;
-//import com.code.repartis.Fake.Companyf;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -54,21 +51,7 @@ public class User {
     @NotBlank(message = "Company is required")
     @Embedded
     private Company company;
+    
 
-    /*
-    public void setAddress(Addressf adr){
-        this.address.setStreet(adr.getStreet());
-        this.address.setSuite(adr.getSuite());
-        this.address.setCity(adr.getCity());
-        this.address.setZipcode(adr.getZipcode());
-        this.address.setGeo(adr.getGeo());
-    }
-
-    public void setCompany(Companyf comp){
-        this.company.setCatchPhrase(comp.getCatchPhrase());
-        this.company.setNamec(comp.getName());
-        this.company.setBs(comp.getBs());
-    }
-    */
 
 }
