@@ -3,6 +3,15 @@ import { Document, Model, model, Schema } from "mongoose";
 export class Post {
   constructor(userId: Number, title: String, body: String, id?: Number) {}
 }
+
+export interface Comment {
+  postId: Number;
+  id: Number;
+  name: String;
+  email: String;
+  body: String;
+}
+
 export interface PostDocument extends Post, Document {}
 
 const postSchema: Schema = new Schema({

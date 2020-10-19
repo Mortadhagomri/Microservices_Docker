@@ -1,4 +1,4 @@
-import PostModel, { Post } from "./../models/Post";
+import PostModel, { Post, Comment } from "./../models/Post";
 import { RequestHandler } from "express";
 import fetch from "node-fetch";
 export const getPosts: RequestHandler = (req, res) => {
@@ -55,17 +55,20 @@ export const getFakePost: RequestHandler = (req, res) => {
     });
 };
 
-export const getComments: RequestHandler<{ id: String }> = (req, res) => {
+export const getComments: RequestHandler<{ id: Number }> = (req, res) => {
   const { id } = req.params;
-  fetch(`https://localhost:8080/comments/${id}`, {
+  fetch(`https://jsonplaceholder.typicode.com/comments`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
     },
   })
     .then((response) => response.json())
-    .then((comments: any[]) => {
-      res.json(comments);
+    .then((comments: Comment[]) => {
+      console.log(id);
+      const fakeComments = comments.filter((comment) => comment.postId === +id);
+      console.log("comments ==>", fakeComments.length);
+      res.json(fakeComments);
     })
     .catch((e) => {
       throw Error(e.message);
