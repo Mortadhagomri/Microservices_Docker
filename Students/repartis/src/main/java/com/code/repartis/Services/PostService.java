@@ -13,14 +13,17 @@ import lombok.AllArgsConstructor;
 
 @Service
 @AllArgsConstructor
-public class CommentService {
+public class PostService {
 
     @Autowired
     RestTemplateClass restTemplate;
 
-	public List<Object> getUserComments(Long id) {
-        List<Object> responseEntity = Arrays.stream(restTemplate.getForObject("http://localhost:8080/api/comments/comments-by-uid/{id}", Object[].class, id)).collect(Collectors.toList());
+    public List<Object> getuserposts(Long id){
+
+        List<Object> responseEntity = Arrays.stream(restTemplate.getForObject("http://localhost:4000/getUserPosts/{id}", Object[].class)).collect(Collectors.toList());
+
         return responseEntity;
-	}
+
+    }
     
 }

@@ -3,6 +3,8 @@ package com.code.repartis.Controller;
 import java.util.List;
 
 import com.code.repartis.Services.CommentService;
+import com.code.repartis.Services.DataBase;
+import com.code.repartis.Services.PostService;
 import com.code.repartis.entities.User;
 import com.code.repartis.repositories.UserRepository;
 
@@ -29,7 +31,18 @@ public class UserController {
     private CommentService commService;
 
     @Autowired
+    private PostService postService;
+
+    @Autowired
+    private DataBase db;
+
+    @Autowired
     private UserRepository userRepository;
+
+    @GetMapping("/fill-db")
+    public void filldatabase(){
+        db.filldb();
+    }
 
     @GetMapping("/listUsers")
     public List<User> listUsers(){
@@ -61,6 +74,17 @@ public class UserController {
     @GetMapping(value="/getComments/{id}")
     public List<Object> getComments(@PathVariable(name="id") Long id){
        return commService.getUserComments(id);
-}
+    }
+
+    @GetMapping(value="/delete-all-users")
+    public ResponseEntity<Long> deleteUsers(){
+        userRepository.deleteAll();
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping(value="/getPosts/{id}")
+    public List<Object> getPosts(@PathVariable(name="id") Long id){
+        return postService.getuserposts(id);
+    }
 
 }
