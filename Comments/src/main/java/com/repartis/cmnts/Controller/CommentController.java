@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import com.repartis.cmnts.entities.Comment;
 import com.repartis.cmnts.repositories.CommentRepository;
+import com.repartis.cmnts.services.FillDataBase;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,6 +27,15 @@ import lombok.AllArgsConstructor;
 public class CommentController {
     @Autowired
     CommentRepository commentRepository;
+
+    @Autowired
+    private FillDataBase fillService;
+
+    @GetMapping("/fill-comments")
+    public ResponseEntity<Long> filldatabase(){
+        fillService.filldb();
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
     @GetMapping("/listComments")
     public List<Comment> listComments() {
@@ -54,9 +64,20 @@ public class CommentController {
             return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping(value="/comment-user-id/{id}")
+    @GetMapping(value="/del-all")
+        public ResponseEntity<Long> deleteComment(){
+            commentRepository.deleteAll();
+            return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping(value="/comments-by-uid/{id}")
         public List<Comment> getUserComments(@PathVariable(name="id") Long id){
         return commentRepository.findByUserId(id);
+    }
+
+    @GetMapping(value="/comments-by-postid/{id}")
+        public List<Comment> getPostComments(@PathVariable(name="id") Long id){
+        return commentRepository.findByPostId(id);
     }
 
 }

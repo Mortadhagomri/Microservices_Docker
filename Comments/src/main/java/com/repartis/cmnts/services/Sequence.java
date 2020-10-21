@@ -2,7 +2,7 @@ package com.repartis.cmnts.services;
 
 import java.util.Objects;
 
-import com.repartis.cmnts.entities.DatabaseSequence;
+import com.repartis.cmnts.entities.DataBaseSequence;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
@@ -21,9 +21,9 @@ public class Sequence {
 
     public long generateSequence(String seqName) {
 
-        DatabaseSequence counter = mongoOperations.findAndModify(query(where("_id").is(seqName)),
+        DataBaseSequence counter = mongoOperations.findAndModify(query(where("_id").is(seqName)),
           new Update().inc("seq",1), options().returnNew(true).upsert(true),
-          DatabaseSequence.class);
+          DataBaseSequence.class);
         return !Objects.isNull(counter) ? counter.getSeq() : 1;
 
     }

@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Document(collection = "database_sequences")
-public class DatabaseSequence {
+public class DataBaseSequence {
  
     @Id
     private String id;
