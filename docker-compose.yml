@@ -1,0 +1,32 @@
+version: "3.1"
+
+services:
+  users_container:
+    build:
+      context: ./Users/repartis
+      dockerfile: Dockerfile
+    image: usersimage:v1
+    networks:
+      - users_network
+    ports:
+      - "9000:9000"
+    depends_on:
+      - postgresdb
+  postgresdb:
+    image: postgres:latest
+    restart: always
+    networks:
+      - users_network
+    volumes:
+      - postgres_db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=repartis
+    ports:
+      - "5432:5432"
+
+networks:
+  users_network:
+volumes:
+  postgres_db:

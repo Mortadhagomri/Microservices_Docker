@@ -57,7 +57,7 @@ export const getFakePost: RequestHandler = (req, res) => {
 
 export const getComments: RequestHandler<{ id: Number }> = (req, res) => {
   const { id } = req.params;
-  fetch(`https://jsonplaceholder.typicode.com/comments`, {
+  fetch(`https://localhost:8080/api/comments/comments-by-postid/${id}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -65,10 +65,7 @@ export const getComments: RequestHandler<{ id: Number }> = (req, res) => {
   })
     .then((response) => response.json())
     .then((comments: Comment[]) => {
-      console.log(id);
-      const fakeComments = comments.filter((comment) => comment.postId === +id);
-      console.log("comments ==>", fakeComments.length);
-      res.json(fakeComments);
+      res.json(comments);
     })
     .catch((e) => {
       throw Error(e.message);
