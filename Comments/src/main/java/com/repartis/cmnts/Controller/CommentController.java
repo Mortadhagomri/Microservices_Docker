@@ -24,7 +24,7 @@ import lombok.AllArgsConstructor;
 
 @RestController
 @RequestMapping("/api/comments")
-@CrossOrigin(origins = "*")
+@CrossOrigin("*")
 @AllArgsConstructor
 public class CommentController {
     @Autowired
