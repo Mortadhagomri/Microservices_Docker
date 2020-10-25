@@ -50,7 +50,7 @@ public class UserController {
     }
 
     @GetMapping(value="/user/{id}")
-    public User findUser(@PathVariable(name="id") Long id){
+    public User findUser(@PathVariable Long id){
         return userRepository.findById(id).get();
     }
 
@@ -60,7 +60,7 @@ public class UserController {
     }
 
     @PutMapping(value="/updateUser/{id}")
-    public User update(@PathVariable(name="id") Long id,@RequestBody User usr){
+    public User update(@PathVariable Long id,@RequestBody User usr){
         usr.setId(id);
         return userRepository.save(usr);
     }
@@ -72,7 +72,7 @@ public class UserController {
     }
 
     @GetMapping(value="/getComments/{id}")
-    public List<Object> getComments(@PathVariable(name="id") Long id){
+    public List<Object> getComments(@PathVariable Long id){
        return commService.getUserComments(id);
     }
 
@@ -83,7 +83,7 @@ public class UserController {
     }
 
     @GetMapping(value="/getPosts/{id}")
-    public List<Object> getPosts(@PathVariable(name="id") Long id){
+    public List<Object> getPosts(@PathVariable Long id){
         return postService.getuserposts(id);
     }
 
