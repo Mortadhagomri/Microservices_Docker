@@ -20,7 +20,7 @@ public class PostService {
 
     public List<Object> getuserposts(Long id){
 
-        List<Object> responseEntity = Arrays.stream(restTemplate.getForObject("http://localhost:4000/getUserPosts/"+id, Object[].class)).collect(Collectors.toList());
+        List<Object> responseEntity = Arrays.stream(restTemplate.getForObject("http://posts_container:4000/getUserPosts/"+id, Object[].class)).collect(Collectors.toList());
 
         return responseEntity;
 
