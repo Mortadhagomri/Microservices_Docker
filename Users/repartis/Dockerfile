@@ -1,4 +1,6 @@
 FROM openjdk:14-alpine
-COPY target/repartis-0.0.1-SNAPSHOT.jar app.jar
+VOLUME /tmp
+ARG JAR_FILE=target/*.jar
+COPY ${JAR_FILE} app.jar
 EXPOSE 9000
 ENTRYPOINT [ "java","-jar","app.jar" ]

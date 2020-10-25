@@ -1,20 +1,64 @@
 version: "3.1"
 
 services:
+  comments_container:
+    build: 
+      context: ./Comments
+      dockerfile: Dockerfile
+    image: commentsimage:v1
+    networks: 
+      - comments_networks
+    restart: always
+    ports: 
+      - "8080:8080"
+    depends_on: 
+      - commentsdb
+    
+  commentsdb:
+    image: mongo
+    networks: 
+      - comments_networks
+    volumes: 
+      - commentdb:/data/db
+      - commentcfg:/data/config      
+
+
+  posts_container:
+    build:
+      context: ./Posts
+      dockerfile: Dockerfile
+    image: postsimage:v1
+    networks:
+      - users_network
+    restart: always
+    ports:
+      - "4000:4000"
+    depends_on:
+      - postsdb
+
+  postsdb:
+    image: mongo
+    networks: 
+      - posts_network
+    volumes: 
+      - postdb:/data/db
+      - postcfg:/data/config   
+
   users_container:
     build:
       context: ./Users/repartis
       dockerfile: Dockerfile
     image: usersimage:v1
+    restart: always
     networks:
       - users_network
     ports:
       - "9000:9000"
     depends_on:
       - postgresdb
+
   postgresdb:
-    image: postgres:latest
-    restart: always
+    image: postgres
     networks:
       - users_network
     volumes:
@@ -23,10 +67,17 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=repartis
-    ports:
-      - "5432:5432"
 
 networks:
   users_network:
+  posts_network:  
+  comments_networks:
+
+
 volumes:
   postgres_db:
+  postdb:
+  postcfg:
+  commentdb:
+  commentcfg:  
+
