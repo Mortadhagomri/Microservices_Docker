@@ -1,6 +1,7 @@
 import PostModel, { Post, Comment } from "./../models/Post";
 import { RequestHandler } from "express";
 import fetch from "node-fetch";
+import Axios from "axios";
 export const getPosts: RequestHandler = (req, res) => {
   PostModel.find().then((results) => res.send(results));
 };
@@ -57,19 +58,10 @@ export const getFakePost: RequestHandler = (req, res) => {
 
 export const getComments: RequestHandler<{ id: Number }> = (req, res) => {
   const { id } = req.params;
-  fetch(`https://localhost:8080/api/comments/comments-by-postid/${id}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  })
-    .then((response) => response.json())
-    .then((comments: Comment[]) => {
-      res.json(comments);
-    })
-    .catch((e) => {
-      throw Error(e.message);
-    });
+  console.log(id)
+  const comments: any= Axios.get(`http://comments_container:8080/api/comments/comments-by-postid/${id}`)
+console.log(comments)
+  
 };
 
 export const getPostsForUser: RequestHandler<{ userId: String }> = (
