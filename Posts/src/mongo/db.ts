@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 mongoose
-  .connect("mongodb://localhost:80", {
+  .connect("mongodb://postsdb", {
     useNewUrlParser: true,
     useCreateIndex: true,
     useFindAndModify: false,
