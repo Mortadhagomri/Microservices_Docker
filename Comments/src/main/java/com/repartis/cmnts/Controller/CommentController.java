@@ -24,7 +24,7 @@ import lombok.AllArgsConstructor;
 
 @RestController
 @RequestMapping("/api/comments")
-@CrossOrigin("*")
+@CrossOrigin(origins = "*")
 @AllArgsConstructor
 public class CommentController {
     @Autowired
@@ -45,7 +45,7 @@ public class CommentController {
     }
 
     @GetMapping("/comment-id/{id}")
-    public Optional<Comment> getComment(@PathVariable(name = "id") Long id) {
+    public Optional<Comment> getComment(@PathVariable Long id) {
         return commentRepository.findById(id);
     }
 
@@ -55,7 +55,7 @@ public class CommentController {
     }
 
     @PutMapping(value="/updateComment/{id}")
-    public Comment update(@PathVariable(name="id") Long id,@RequestBody Comment comment){
+    public Comment update(@PathVariable Long id,@RequestBody Comment comment){
         comment.setId(id);
         return commentRepository.save(comment);
     }
@@ -73,12 +73,12 @@ public class CommentController {
     }
 
     @GetMapping(value="/comments-by-uid/{id}")
-        public List<Comment> getUserComments(@PathVariable(name="id") Long id){
+        public List<Comment> getUserComments(@PathVariable Long id){
         return commentRepository.findByUserId(id);
     }
 
     @GetMapping(value="/comments-by-postid/{id}")
-        public List<Comment> getPostComments(@PathVariable(name="id") Long id){
+        public List<Comment> getPostComments(@PathVariable Long id){
         return commentRepository.findByPostId(id);
     }
 
