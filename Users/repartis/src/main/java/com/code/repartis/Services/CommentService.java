@@ -19,7 +19,7 @@ public class CommentService {
     RestTemplateClass restTemplate;
 
 	public List<Object> getUserComments(Long id) {
-        List<Object> responseEntity = Arrays.stream(restTemplate.getForObject("http://localhost:8080/api/comments/comments-by-uid/{id}", Object[].class, id)).collect(Collectors.toList());
+        List<Object> responseEntity = Arrays.stream(restTemplate.getForObject("http://comments_container:8080/api/comments/comments-by-uid/"+id, Object[].class, id)).collect(Collectors.toList());
         return responseEntity;
 	}
     
