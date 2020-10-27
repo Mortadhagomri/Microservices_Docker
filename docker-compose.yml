@@ -3,42 +3,37 @@ version: "3.1"
 services:
   comments_container:
     container_name: comments_container
-    stdin_open: true
-    build: 
+    build:
       context: ./Comments
       dockerfile: Dockerfile
     image: commentsimage:v1
-    networks: 
+    networks:
       - comments_network
-      - posts_network
+      - appnet
     restart: always
-    volumes: 
-      - commentmp:/tmp
-    ports: 
+    ports:
       - "8080:8080"
-    depends_on: 
+    depends_on:
       - commentsdb
-    
+
   commentsdb:
     container_name: commentsdb
     image: mongo
-    networks: 
+    networks:
       - comments_network
-    volumes: 
+    volumes:
       - commentdb:/data/db
-      - commentcfg:/data/configdb      
-
+      - commentcfg:/data/configdb
 
   posts_container:
     container_name: posts_container
-    stdin_open: true
     build:
       context: ./Posts
       dockerfile: Dockerfile
     image: postsimage:v1
     networks:
+      - appnet
       - posts_network
-      - comments_network
     restart: always
     ports:
       - "4000:4000"
@@ -48,23 +43,23 @@ services:
   postsdb:
     container_name: postsdb
     image: mongo
-    networks: 
+    networks:
       - posts_network
-    volumes: 
+    volumes:
       - postdb:/data/db
-      - postcfg:/data/configdb   
+      - postcfg:/data/configdb
 
   users_container:
-    stdin_open: true
     container_name: users_container
     build:
       context: ./Users/repartis
       dockerfile: Dockerfile
     image: usersimage:v1
-    volumes: 
+    volumes:
       - usertmp:/tmp
     restart: always
     networks:
+      - appnet
       - users_network
     ports:
       - "9000:9000"
@@ -85,9 +80,9 @@ services:
 
 networks:
   users_network:
-  posts_network:  
+  posts_network:
   comments_network:
-
+  appnet:
 
 volumes:
   postgres_db:
@@ -95,6 +90,4 @@ volumes:
   postdb:
   postcfg:
   commentdb:
-  commentcfg:  
-  commentmp:
-
+  commentcfg:
