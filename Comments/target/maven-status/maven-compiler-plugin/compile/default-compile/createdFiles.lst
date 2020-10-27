@@ -1,8 +1,0 @@
-com\cmnts\repartis\services\FillDataBase.class
-com\cmnts\repartis\entities\Comment.class
-com\cmnts\repartis\entities\DataBaseSequence.class
-com\cmnts\repartis\RepartisApplication.class
-com\cmnts\repartis\services\Sequence.class
-com\cmnts\repartis\repositories\CommentRepository.class
-com\cmnts\repartis\Controller\CommentController.class
-com\cmnts\repartis\Configuration\RestTemplateClass.class
